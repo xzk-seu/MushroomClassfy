@@ -1,6 +1,7 @@
 import pandas as pd
 import json
 import os
+import random
 
 
 if __name__ == '__main__':
@@ -9,6 +10,7 @@ if __name__ == '__main__':
     for index, row in fr.iterrows():
         temp_dict = {'id': index, 'class': row['class'], 'feature': list(row[1:])}
         data_list.append(temp_dict)
+    random.shuffle(data_list)
     json.dump(data_list, open('total.json', 'w'))
 
     data_path = os.path.join(os.getcwd(), 'data')

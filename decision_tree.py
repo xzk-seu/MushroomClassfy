@@ -65,6 +65,11 @@ class DecisionTree(object):
             print('feature: %d, info_gain: %f' % (feature, info_gain))
             info_gains.append(temp_tuple)
         best_feature = max(info_gains, key=lambda x: x[1])[0]
+        max_info_gain = -1
+        for feature, info_gain in info_gains:
+            if info_gain >= max_info_gain:
+                max_info_gain = info_gain
+                best_feature = feature
         print('当前数据下的最优特征为: %d' % best_feature)
         return best_feature
 
@@ -107,6 +112,25 @@ class DecisionTree(object):
             data = tree['tree'].get_tree_dict()
             temp_dict['sub_trees'].append(dict(value=tree['value'], tree=data))
         return temp_dict
+
+    def predict(self, data):
+        """
+        在当前树下预测data属于哪一类
+        :param data:
+        :return:
+        """
+        print('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
+        print('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
+        if self.is_leaf:
+            print('data[%d]的预测值为:%s' % (data['id'], self.prediction))
+            return self.prediction
+        else:
+            print('此时判断特征【%d】' % self.best_feature)
+            value = data['feature'][self.best_feature]
+            print('data[%d]的feature[%d]为%s' % (data['id'], self.best_feature, value))
+            for tree in self.sub_trees:
+                if tree['value'] == value:
+                    return tree['tree'].predict(data)
 
 
 def partition_by_feature(data_set, feature):

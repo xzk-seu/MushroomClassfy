@@ -25,13 +25,3 @@ if __name__ == '__main__':
 
     print(a_list)
 
-    # json.dump(t, open('p.json', 'w'))
-    #
-    # path = os.path.join(os.getcwd(), 'data', 'data_%d.json' % 9)
-    # test_set = json.load(open(path, 'r'))
-    # correction = 0
-    # for data in test_set:
-    #     if data['class'] == dt.predict(data):
-    #         correction += 1
-    # accuracy = correction/len(test_set)
-    # print('accuracy', accuracy)
